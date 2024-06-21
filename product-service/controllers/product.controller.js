@@ -1,4 +1,5 @@
 import Product from "../models/product.model.js";
+import { channel } from "../utils/amqpServerConnect.js";
 
 const createProduct = async (req, res) => {
     const { name, description, price } = req.body;
@@ -11,6 +12,7 @@ const createProduct = async (req, res) => {
     return res.json(newProduct);
 }
 
+var order;
 const buyProduct = async (req, res) => {
     const { ids } = req.body;
     const products = await Product.find({ _id: { $in: ids } });
